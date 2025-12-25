@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Receipt</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:Segoe UI,Roboto,Arial,sans-serif;
+    background:#f5f5f0;
+    padding:20px;
+    color:#1f1f1f;
+    line-height:1.6;
+}
+.container{
+    max-width:1200px;
+    margin:auto;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
+    padding-bottom:30px;
+}
+
+/* HEADER */
+.header{
+    background:#6f7a49;
+    color:#fff;
+    padding:30px 40px 40px;
+}
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+.header-top img{
+    width:180px;
+    filter:brightness(0) invert(1);
+}
+.badge{
+    background:#333;
+    padding:8px 30px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:600;
+    white-space:nowrap;
+}
+.header-bottom{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    margin-top:20px;
+    gap:20px;
+}
+.header-bottom h1{
+    font-size:36px;
+    font-weight:400;
+    letter-spacing:2px;
+    margin-bottom:5px;
+}
+.header-info{
+    text-align:right;
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* TABS */
+.tabs{
+    display:flex;
+    gap:12px;
+    padding:20px;
+    background:#f1f5eb;
+    margin:-20px 20px 20px;
+    border-radius:14px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+    flex-wrap:wrap;
+}
+.tab{
+    flex:1;
+    padding:10px;
+    text-align:center;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:500;
+    background:#6f7a49;
+    color:#fff;
+    white-space:nowrap;
+}
+.tab.inactive{
+    background:none;
+    border:2px solid #6f7a49;
+    color:#555;
+}
+
+/* CONTENT */
+.content{padding:25px 30px}
+
+/* FORM GRID */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    padding:20px;
+    border-radius:22px;
+    box-shadow:0 0 4px rgba(0,0,0,.15);
+    margin-bottom:35px;
+}
+.field label{
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:6px;
+    display:block;
+}
+.field input,
+.field textarea{
+    width:100%;
+    padding:12px 14px;
+    border-radius:8px;
+    border:1px solid #d1d1d1;
+    font-size:13px;
+}
+.field textarea{
+    min-height:100px;
+    resize:none;
+}
+.span-2{grid-column:span 2}
+
+/* INFO BOXES */
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+    margin-bottom:35px;
+}
+.info-box{
+    padding:20px;
+    border-radius:18px;
+    border:1px solid #e5e5e5;
+    box-shadow:0 0 4px rgba(0,0,0,.2);
+}
+.info-box h4{
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:6px 0;
+    font-size:13px;
+}
+
+/* DESCRIPTION TABLE */
+.description-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:30px;
+}
+.description-table th,
+.description-table td{
+    padding:10px;
+    border:1px solid #e5e5e5;
+    font-size:14px;
+}
+.description-table th{
+    background:#f1f5eb;
+    text-align:left;
+}
+
+/* TOTALS */
+.totals{
+    max-width:380px;
+    margin-left:auto;
+    padding:20px;
+    border-radius:18px;
+    border:1px solid #e5e5e5;
+    margin-bottom:25px;
+}
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+}
+.total-row.final{
+    border-top:1px solid #000;
+    font-weight:700;
+    font-size:15px;
+}
+
+/* PAYMENT NOTES */
+.note{
+    margin-top:25px;
+}
+.note h4{margin-bottom:12px}
+.note ul{
+    padding-left:20px;
+    list-style-type:disc;
+}
+.note li{
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:6px;
+}
+
+/* BUTTONS */
+.actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+button{
+    padding:8px 16px;
+    border-radius:20px;
+    border:none;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+}
+.btn-olive{background:#6f7a49;color:#fff}
+.btn-gray{background:#e5e5e5}
+.btn-red{background:#dc2626;color:#fff}
+.btn-green{background:green;color:#fff}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+    .form-grid{grid-template-columns:repeat(2,1fr)}
+    .info-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+    .form-grid{grid-template-columns:1fr}
+    .header-bottom{text-align:center;}
+    .header-info{text-align:center;}
+}
+
+/* PRINT */
+@media print{
+    body{
+        background:#fff;
+        padding:0;
+        line-height:1.4;
+        font-size:13pt;
+    }
+    .actions,.tabs{display:none}
+    .container{
+        box-shadow:none;
+        border-radius:0;
+        margin:0;
+        padding:10px;
+    }
+    .form-grid, .info-grid, .description-table, .totals, .note{
+        page-break-inside:avoid;
+    }
+    table, .description-table, .totals{
+        font-size:12pt;
+        width:100%;
+    }
+    th, td{
+        padding:6px 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-top">
+        <img src="logo.png" alt="">
+        <div class="badge">PAID RECEIPT</div>
+    </div>
+
+    <div class="header-bottom">
+        <div>
+            <h1>RECEIPT</h1>
+            <small>✉billing@domesta.com<br>🌐www.domesta.com</small>
+        </div>
+        <div class="header-info">
+          Domesta Receipt No: <b>DOM-RCT-0000</b><br>
+          Payment Date: <b>2025-12-16</b><br>
+          Invoice Ref: <b>DOM-INV-0000</b><br><br>
+          Status: <b class="badge">Succeeded</b>
+        </div>
+    </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+    <div class="tab">Company Info</div>
+    <div class="tab">Payment Details</div>
+    <div class="tab inactive">Plan & Payment</div>
+    <div class="tab inactive">Review & Send</div>
+</div>
+
+<div class="content">
+
+<!-- FORM -->
+<div class="form-grid">
+    <div class="field"><label>Employer / Company*</label><input placeholder="Enter company name"></div>
+    <div class="field"><label>Employer Email*</label><input placeholder="Enter email"></div>
+    <div class="field"><label>Employer ID</label><input placeholder="Enter employer ID"></div>
+    <div class="field"><label>Country*</label><input placeholder="Enter country"></div>
+    <div class="field"><label>Tax ID ?</label><input placeholder="Enter tax ID"></div>
+    <div class="field"><label>Currency*</label><input placeholder="Enter currency"></div>
+    <div class="field"><label>VAT%</label><input placeholder="Enter VAT %"></div>
+    <div class="field"><label>Plan</label><input placeholder="Enter plan"></div>
+    <div class="field"><label>Stripe Mode ?</label><input placeholder="Enter stripe mode"></div>
+    <div class="field"><label>Stripe Customer ID</label><input placeholder="Enter customer ID"></div>
+    <div class="field"><label>Stripe Invoice ID</label><input placeholder="Enter invoice ID"></div>
+    <div class="field"><label>Stripe Subscription ID</label><input placeholder="Enter subscription ID"></div>
+    <div class="field"><label>Payment Method Brand</label><input placeholder="Enter payment method brand"></div>
+    <div class="field"><label>Last Digits</label><input placeholder="Enter last digits"></div>
+    <div class="field"><label>Payment Status</label><input placeholder="Enter payment status"></div>
+    <div class="field"><label>Hosted Invoice URL</label><input placeholder="Enter invoice URL"></div>
+    <div class="field span-2">
+    <label>Internal Notes (not shown to customer)</label>
+    <textarea placeholder="Optional internal note for ops/accounting..."></textarea>
+</div>
+</div>
+
+<!-- INFO BOXES -->
+<div class="info-grid">
+<div class="info-box">
+<h4>Billed To (Employer)</h4>
+<div class="info-row"><span>Company</span></div>
+<div class="info-row"><span>Email</span></div>
+<div class="info-row"><span>Phone</span></div>
+<div class="info-row"><span>Employer ID</span></div>
+<div class="info-row"><span>Billing Address</span></div>
+<div class="info-row"><span>Country</span></div>
+<div class="info-row"><span>Tax ID</span></div>
+<div class="info-actions">
+<button class="btn-gray">Copy Name</button>
+<button class="btn-olive">Copy Email</button>
+</div>
+</div>
+
+<div class="info-box">
+<h4>Stripe Metadata</h4>
+<div class="info-row"><span>Mode</span></div>
+<div class="info-row"><span>Customer ID</span></div>
+<div class="info-row"><span>Invoice ID</span></div>
+<div class="info-row"><span>Subscription ID</span></div>
+<div class="info-row"><span>Checkout Session</span></div>
+<div class="info-row"><span>Hosted URL</span></div>
+<div class="info-actions">
+<button class="btn-gray">Copy Customer ID</button>
+<button class="btn-olive">Show QR</button>
+</div>
+</div>
+</div>
+
+<!-- DESCRIPTION / BILLING TABLE -->
+<table class="description-table">
+<thead>
+<tr>
+<th>Description</th>
+<th>Period</th>
+<th>Qty</th>
+<th>Unit Price</th>
+<th>Amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Starter Plan<br><small>Employer access for browsing & contacting workers as per selected plan.</small></td>
+<td>7 days</td>
+<td>1</td>
+<td>BHD 14.9</td>
+<td>BHD 14.9</td>
+</tr>
+</tbody>
+</table>
+
+<!-- TOTALS DIV -->
+<div class="totals">
+<div class="total-row">
+    <span>Subtotal (Excl. VAT)</span>
+    <span>BHD 14.9</span>
+</div>
+<div class="total-row">
+    <span>VAT</span>
+    <span>BHD 1.5</span>
+</div>
+<div class="total-row final">
+    <span>Amount Paid</span>
+    <span>BHD 16.4</span>
+</div>
+</div>
+
+<!-- PAYMENT CONFIRMATION / NOTES -->
+<div class="note">
+    <h4>Payment Confirmation</h4>
+    <ul>
+        <li>This document confirms that payment has been received for the services listed above. A separate invoice was issued prior to this receipt. For subscription payments, this receipt confirms payment for the current billing period.</li>
+        <li>All payments are processed securely via Stripe. Payment receipts are available for 7 years from the payment date for tax purposes.</li>
+        <li>For refunds or disputes, please contact <b>billing@domesta.com</b> with your receipt number.</li>
+        <li>Domesta LLC provides digital platform services and does not act as an employer or recruitment agency.</li>
+    </ul>
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="actions">
+    <button class="btn-olive">Print / Save PDF Document Ready for Printing</button>
+    <button class="btn-olive">Save Invoice</button>
+    <button class="btn-gray">Load Last Saved</button>
+    <button class="btn-gray">Export JSON</button>
+    <button class="btn-gray">Set Payment Date = Today</button>
+</div>
+
+<div class="actions" style="margin-top:10px;">
+    <button class="btn-gray">New Receipt #</button>
+    <button class="btn-gray">Mark as Refunded</button>
+    <button class="btn-red">Clear Form</button>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

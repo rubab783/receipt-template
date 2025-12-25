@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Receipt</title>
 
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
@@ -20,15 +24,16 @@ body{
     background:#fff;
     border-radius:12px;
     overflow:hidden;
-    box-shadow:0 4px 12px rgba(0,0,0,.1);
-    padding-bottom:30px;
+    padding-bottom:40px;
 }
 
 /* HEADER */
 .header{
     background:#6f7a49;
     color:#fff;
-    padding:30px 40px 40px;
+    padding:15px 40px 15px; /* reduced padding */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .header-top{
     display:flex;
@@ -43,17 +48,19 @@ body{
 }
 .badge{
     background:#333;
-    padding:8px 30px;
+    padding:10px 35px;
     border-radius:30px;
     font-size:12px;
     font-weight:600;
     white-space:nowrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .header-bottom{
     display:flex;
     justify-content:space-between;
     flex-wrap:wrap;
-    margin-top:20px;
+    margin-top:10px; /* reduced margin */
     gap:20px;
 }
 .header-bottom h1{
@@ -65,23 +72,24 @@ body{
 .header-info{
     text-align:right;
     font-size:13px;
-    line-height:1.6;
+    line-height:1.8;
 }
 
 /* TABS */
 .tabs{
     display:flex;
     gap:12px;
-    padding:20px;
+    padding:15px 20px; /* reduced padding */
     background:#f1f5eb;
-    margin:-20px 20px 20px;
+    margin:0 20px 20px;
     border-radius:14px;
-    box-shadow:0 4px 10px rgba(0,0,0,.15);
     flex-wrap:wrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .tab{
     flex:1;
-    padding:10px;
+    padding:12px;
     text-align:center;
     border-radius:30px;
     font-size:13px;
@@ -89,6 +97,8 @@ body{
     background:#6f7a49;
     color:#fff;
     white-space:nowrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .tab.inactive{
     background:none;
@@ -97,29 +107,29 @@ body{
 }
 
 /* CONTENT */
-.content{padding:25px 30px}
+.content{padding:20px 25px}
 
 /* FORM GRID */
 .form-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:20px;
-    padding:20px;
+    gap:15px;
+    padding:15px;
     border-radius:22px;
-    box-shadow:0 0 4px rgba(0,0,0,.15);
-    margin-bottom:35px;
+    margin-bottom:30px;
+    page-break-inside: avoid;
 }
 .field label{
     font-size:14px;
     font-weight:500;
-    margin-bottom:6px;
+    margin-bottom:8px;
     display:block;
 }
 .field input,
 .field textarea{
     width:100%;
-    padding:12px 14px;
-    border-radius:8px;
+    padding:10px 12px;
+    border-radius:6px;
     border:1px solid #d1d1d1;
     font-size:13px;
 }
@@ -133,26 +143,26 @@ body{
 .info-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:25px;
-    margin-bottom:35px;
+    gap:15px;
+    margin-bottom:30px;
+    page-break-inside: avoid;
 }
 .info-box{
-    padding:20px;
-    border-radius:18px;
+    padding:15px;
+    border-radius:12px;
     border:1px solid #e5e5e5;
-    box-shadow:0 0 4px rgba(0,0,0,.2);
 }
 .info-box h4{
     font-size:14px;
     font-weight:700;
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
 .info-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:10px;
-    padding:6px 0;
+    padding:4px 0;
     font-size:13px;
 }
 
@@ -160,13 +170,14 @@ body{
 .description-table{
     width:100%;
     border-collapse:collapse;
-    margin-bottom:30px;
+    margin-bottom:25px;
+    page-break-inside: avoid;
 }
 .description-table th,
 .description-table td{
-    padding:10px;
+    padding:8px;
     border:1px solid #e5e5e5;
-    font-size:14px;
+    font-size:13px;
 }
 .description-table th{
     background:#f1f5eb;
@@ -177,34 +188,36 @@ body{
 .totals{
     max-width:380px;
     margin-left:auto;
-    padding:20px;
-    border-radius:18px;
+    padding:15px;
+    border-radius:12px;
     border:1px solid #e5e5e5;
     margin-bottom:25px;
+    page-break-inside: avoid;
 }
 .total-row{
     display:flex;
     justify-content:space-between;
-    padding:8px 0;
+    padding:6px 0;
 }
 .total-row.final{
     border-top:1px solid #000;
     font-weight:700;
-    font-size:15px;
+    font-size:14px;
 }
 
-/* PAYMENT NOTES */
+/* NOTES */
 .note{
-    margin-top:25px;
+    margin-top:20px;
+    page-break-inside: avoid;
 }
-.note h4{margin-bottom:12px}
+.note h4{margin-bottom:8px}
 .note ul{
-    padding-left:20px;
+    padding-left:18px;
     list-style-type:disc;
 }
 .note li{
     font-size:13px;
-    line-height:1.6;
+    line-height:1.5;
     margin-bottom:6px;
 }
 
@@ -216,7 +229,7 @@ body{
     margin-top:20px;
 }
 button{
-    padding:8px 16px;
+    padding:8px 14px;
     border-radius:20px;
     border:none;
     font-size:12px;
@@ -238,33 +251,6 @@ button{
     .form-grid{grid-template-columns:1fr}
     .header-bottom{text-align:center;}
     .header-info{text-align:center;}
-}
-
-/* PRINT */
-@media print{
-    body{
-        background:#fff;
-        padding:0;
-        line-height:1.4;
-        font-size:13pt;
-    }
-    .actions,.tabs{display:none}
-    .container{
-        box-shadow:none;
-        border-radius:0;
-        margin:0;
-        padding:10px;
-    }
-    .form-grid, .info-grid, .description-table, .totals, .note{
-        page-break-inside:avoid;
-    }
-    table, .description-table, .totals{
-        font-size:12pt;
-        width:100%;
-    }
-    th, td{
-        padding:6px 8px;
-    }
 }
 </style>
 </head>
@@ -360,7 +346,7 @@ button{
 </div>
 </div>
 
-<!-- DESCRIPTION / BILLING TABLE -->
+<!-- TABLE -->
 <table class="description-table">
 <thead>
 <tr>
@@ -382,7 +368,7 @@ button{
 </tbody>
 </table>
 
-<!-- TOTALS DIV -->
+<!-- TOTALS -->
 <div class="totals">
 <div class="total-row">
     <span>Subtotal (Excl. VAT)</span>
@@ -398,34 +384,48 @@ button{
 </div>
 </div>
 
-<!-- PAYMENT CONFIRMATION / NOTES -->
+<!-- NOTES -->
 <div class="note">
-    <h4>Payment Confirmation</h4>
-    <ul>
-        <li>This document confirms that payment has been received for the services listed above. A separate invoice was issued prior to this receipt. For subscription payments, this receipt confirms payment for the current billing period.</li>
-        <li>All payments are processed securely via Stripe. Payment receipts are available for 7 years from the payment date for tax purposes.</li>
-        <li>For refunds or disputes, please contact <b>billing@domesta.com</b> with your receipt number.</li>
-        <li>Domesta LLC provides digital platform services and does not act as an employer or recruitment agency.</li>
-    </ul>
+<h4>Payment Confirmation</h4>
+<ul>
+<li>This document confirms that payment has been received for the services listed above.</li>
+<li>All payments are processed securely via Stripe.</li>
+<li>For refunds or disputes, please contact <b>billing@domesta.com</b></li>
+<li>Domesta LLC provides digital platform services only.</li>
+</ul>
 </div>
 
-<!-- ACTION BUTTONS -->
+<!-- BUTTONS -->
 <div class="actions">
-    <button class="btn-olive">Print / Save PDF Document Ready for Printing</button>
-    <button class="btn-olive">Save Invoice</button>
-    <button class="btn-gray">Load Last Saved</button>
-    <button class="btn-gray">Export JSON</button>
-    <button class="btn-gray">Set Payment Date = Today</button>
-</div>
-
-<div class="actions" style="margin-top:10px;">
-    <button class="btn-gray">New Receipt #</button>
-    <button class="btn-gray">Mark as Refunded</button>
-    <button class="btn-red">Clear Form</button>
+<button onclick="downloadPDF()" class="btn-olive">Download PDF</button>
+<button class="btn-olive">Save Invoice</button>
+<button class="btn-gray">Load Last Saved</button>
+<button class="btn-gray">Export JSON</button>
+<button class="btn-gray">Set Payment Date = Today</button>
 </div>
 
 </div>
-</div>
+
+<script>
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'pt', 'a4');
+
+    doc.html(document.querySelector('.container'), {
+        callback: function(doc) {
+            doc.save('receipt.pdf');
+        },
+        x: 0,
+        y: 0,
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            scrollY: -window.scrollY,
+            windowWidth: document.querySelector('.container').scrollWidth
+        }
+    });
+}
+</script>
 
 </body>
 </html>

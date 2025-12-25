@@ -5,17 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Receipt</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-<!-- jsPDF & html2canvas -->
+<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family:Segoe UI,Roboto,Arial,sans-serif;
     background:#f5f5f0;
     padding:20px;
     color:#1f1f1f;
@@ -27,14 +24,14 @@ body{
     background:#fff;
     border-radius:12px;
     overflow:hidden;
-    padding-bottom:20px;
+    padding-bottom:40px;
 }
 
 /* HEADER */
 .header{
     background:#6f7a49;
     color:#fff;
-    padding:10px 30px;
+    padding:15px 40px 15px; /* reduced padding */
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
 }
@@ -46,12 +43,12 @@ body{
     gap:15px;
 }
 .header-top img{
-    width:150px;
+    width:180px;
     filter:brightness(0) invert(1);
 }
 .badge{
     background:#333;
-    padding:8px 25px;
+    padding:10px 35px;
     border-radius:30px;
     font-size:12px;
     font-weight:600;
@@ -63,41 +60,45 @@ body{
     display:flex;
     justify-content:space-between;
     flex-wrap:wrap;
-    margin-top:5px;
-    gap:15px;
+    margin-top:10px; /* reduced margin */
+    gap:20px;
 }
 .header-bottom h1{
-    font-size:28px;
+    font-size:36px;
     font-weight:400;
-    letter-spacing:1.5px;
+    letter-spacing:2px;
     margin-bottom:5px;
 }
 .header-info{
     text-align:right;
-    font-size:12px;
-    line-height:1.6;
+    font-size:13px;
+    line-height:1.8;
 }
 
 /* TABS */
 .tabs{
     display:flex;
-    gap:10px;
-    padding:10px 15px;
+    gap:12px;
+    padding:15px 20px; /* reduced padding */
     background:#f1f5eb;
-    margin:0 15px 15px;
-    border-radius:12px;
+    margin:0 20px 20px;
+    border-radius:14px;
     flex-wrap:wrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .tab{
     flex:1;
-    padding:8px;
+    padding:12px;
     text-align:center;
     border-radius:30px;
-    font-size:12px;
+    font-size:13px;
     font-weight:500;
     background:#6f7a49;
     color:#fff;
     white-space:nowrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 .tab.inactive{
     background:none;
@@ -106,34 +107,34 @@ body{
 }
 
 /* CONTENT */
-.content{padding:15px 20px}
+.content{padding:20px 25px}
 
 /* FORM GRID */
 .form-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    padding:10px;
-    border-radius:12px;
-    margin-bottom:20px;
+    gap:15px;
+    padding:15px;
+    border-radius:22px;
+    margin-bottom:30px;
     page-break-inside: avoid;
 }
 .field label{
-    font-size:12px;
+    font-size:14px;
     font-weight:500;
-    margin-bottom:5px;
+    margin-bottom:8px;
     display:block;
 }
 .field input,
 .field textarea{
     width:100%;
-    padding:6px 8px;
-    border-radius:4px;
+    padding:10px 12px;
+    border-radius:6px;
     border:1px solid #d1d1d1;
-    font-size:12px;
+    font-size:13px;
 }
 .field textarea{
-    min-height:80px;
+    min-height:100px;
     resize:none;
 }
 .span-2{grid-column:span 2}
@@ -142,41 +143,41 @@ body{
 .info-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:20px;
+    gap:15px;
+    margin-bottom:30px;
     page-break-inside: avoid;
 }
 .info-box{
-    padding:10px;
-    border-radius:8px;
+    padding:15px;
+    border-radius:12px;
     border:1px solid #e5e5e5;
 }
 .info-box h4{
-    font-size:12px;
+    font-size:14px;
     font-weight:700;
-    margin-bottom:8px;
+    margin-bottom:12px;
 }
 .info-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:5px;
-    padding:2px 0;
-    font-size:12px;
+    gap:10px;
+    padding:4px 0;
+    font-size:13px;
 }
 
 /* DESCRIPTION TABLE */
 .description-table{
     width:100%;
     border-collapse:collapse;
-    margin-bottom:15px;
+    margin-bottom:25px;
     page-break-inside: avoid;
 }
 .description-table th,
 .description-table td{
-    padding:6px;
+    padding:8px;
     border:1px solid #e5e5e5;
-    font-size:12px;
+    font-size:13px;
 }
 .description-table th{
     background:#f1f5eb;
@@ -187,51 +188,51 @@ body{
 .totals{
     max-width:380px;
     margin-left:auto;
-    padding:10px;
-    border-radius:8px;
+    padding:15px;
+    border-radius:12px;
     border:1px solid #e5e5e5;
-    margin-bottom:15px;
+    margin-bottom:25px;
     page-break-inside: avoid;
 }
 .total-row{
     display:flex;
     justify-content:space-between;
-    padding:4px 0;
+    padding:6px 0;
 }
 .total-row.final{
     border-top:1px solid #000;
     font-weight:700;
-    font-size:12px;
+    font-size:14px;
 }
 
 /* NOTES */
 .note{
-    margin-top:10px;
+    margin-top:20px;
     page-break-inside: avoid;
 }
-.note h4{margin-bottom:5px}
+.note h4{margin-bottom:8px}
 .note ul{
-    padding-left:15px;
+    padding-left:18px;
     list-style-type:disc;
 }
 .note li{
-    font-size:12px;
-    line-height:1.4;
-    margin-bottom:4px;
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:6px;
 }
 
 /* BUTTONS */
 .actions{
     display:flex;
-    gap:8px;
+    gap:12px;
     flex-wrap:wrap;
-    margin-top:10px;
+    margin-top:20px;
 }
 button{
-    padding:6px 10px;
-    border-radius:16px;
+    padding:8px 14px;
+    border-radius:20px;
     border:none;
-    font-size:11px;
+    font-size:12px;
     font-weight:600;
     cursor:pointer;
     white-space:nowrap;
@@ -255,13 +256,16 @@ button{
 </head>
 
 <body>
+
 <div class="container">
+
 <!-- HEADER -->
 <div class="header">
     <div class="header-top">
-        <img src="./logo.png" alt="">
+        <img src="logo.png" alt="">
         <div class="badge">PAID RECEIPT</div>
     </div>
+
     <div class="header-bottom">
         <div>
             <h1>RECEIPT</h1>
@@ -285,7 +289,8 @@ button{
 </div>
 
 <div class="content">
-<!-- FORM GRID -->
+
+<!-- FORM -->
 <div class="form-grid">
     <div class="field"><label>Employer / Company*</label><input placeholder="Enter company name"></div>
     <div class="field"><label>Employer Email*</label><input placeholder="Enter email"></div>
@@ -304,9 +309,9 @@ button{
     <div class="field"><label>Payment Status</label><input placeholder="Enter payment status"></div>
     <div class="field"><label>Hosted Invoice URL</label><input placeholder="Enter invoice URL"></div>
     <div class="field span-2">
-        <label>Internal Notes</label>
-        <textarea placeholder="Optional internal note..."></textarea>
-    </div>
+    <label>Internal Notes (not shown to customer)</label>
+    <textarea placeholder="Optional internal note for ops/accounting..."></textarea>
+</div>
 </div>
 
 <!-- INFO BOXES -->
@@ -354,7 +359,7 @@ button{
 </thead>
 <tbody>
 <tr>
-<td>Starter Plan<br><small>Employer access for browsing & contacting workers.</small></td>
+<td>Starter Plan<br><small>Employer access for browsing & contacting workers as per selected plan.</small></td>
 <td>7 days</td>
 <td>1</td>
 <td>BHD 14.9</td>
@@ -383,9 +388,9 @@ button{
 <div class="note">
 <h4>Payment Confirmation</h4>
 <ul>
-<li>This document confirms payment has been received.</li>
+<li>This document confirms that payment has been received for the services listed above.</li>
 <li>All payments are processed securely via Stripe.</li>
-<li>For refunds or disputes, contact <b>billing@domesta.com</b></li>
+<li>For refunds or disputes, please contact <b>billing@domesta.com</b></li>
 <li>Domesta LLC provides digital platform services only.</li>
 </ul>
 </div>
@@ -398,10 +403,10 @@ button{
 <button class="btn-gray">Export JSON</button>
 <button class="btn-gray">Set Payment Date = Today</button>
 </div>
-<div class="action-buttons">
-                <button class="btn-gray">New Receipt #</button>
-                <button class="btn-gray">Mark as Refunded</button>
-                <button class="btn-red">Clear Form</button>
+ <div class="action-buttons">
+                <button class="button button-gray">New Receipt #</button>
+                <button class="button button-gray">Mark as Refunded</button>
+                <button class="button button-red">Clear Form</button>
             </div>
 </div>
 
@@ -414,14 +419,13 @@ function downloadPDF() {
         callback: function(doc) {
             doc.save('receipt.pdf');
         },
-        x: 10,
-        y: 10,
+        x: 0,
+        y: 0,
         html2canvas: {
-            scale: 0.6,
+            scale: 2,
             useCORS: true,
             scrollY: -window.scrollY,
-            width: document.querySelector('.container').scrollWidth,
-            height: document.querySelector('.container').scrollHeight
+            windowWidth: document.querySelector('.container').scrollWidth
         }
     });
 }
